@@ -5,3 +5,4 @@ This Readme contains shell permissions commands
 3- group - script that prints all the groups the current user is part of.
 4- chown betty hello - changes the owner of the file hello to the user betty.
 5 - touch hello - creates an empty file named hello
+6- chmod u+x - giving permission to an owner to execute a file
