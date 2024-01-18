@@ -1,25 +1,24 @@
 #!/usr/bin/python3
-"""function that queries the reddit API and prints the
-titles of the first 10 hot posts listed for a given subreddit."""
-
-
+"""makes an api call for top ten post"""
 import requests
 
 
 def top_ten(subreddit):
-    """function that queries the reddit API and prints the
-        titles of the first 10 hot posts listed for
-        a given subreddit."""
-    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    headers = {'User-Agent': 'Mozilla/5.0'}
-    try:
-        response = requests.get(url, headers=headers,
-                                allow_redirects=False)
-        if response.status_code == 200:
-            children = response.json().get('data').get('children')
-            for i in range(10):
-                print(children[i].get('data').get('title'))
-        else:
-            print("None")
-    except Exception:
+    """ get the top ten hot posts in a given subreddit
+    Args:
+        subreddit(str) - The name of the subreddit to check"""
+
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
+
+    data = requests.get(url, headers={'User-agent': 'my-bot'},
+                        allow_redirects=False)
+    if data.status_code == 200:
+        all_posts = data.json()['data']['children']
+        count = 0
+        for post in all_posts:
+            if count == 10:
+                break
+            print(post['data']['title'])
+            count = count + 1
+    else:
         print("None")
